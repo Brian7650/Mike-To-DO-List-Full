@@ -163,6 +163,6 @@ function removeLocalTodos(todo) {
         // This assumes we have codes of this files in save local 
     }
     const todoIndex = todo.children[0].innerText;
-    todos.splice(todos.IndexOf(todoIndex), 1);
+    todos.splice(todos.indexOf(todoIndex), 1);
     localStorage.setItem("todos", JSON.stringify(todos));
 }
