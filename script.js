@@ -5,7 +5,7 @@ const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 
 // Event Listeners
-document.addEventListener('DOMContentloaded', getTodos);
+document.addEventListener('DOMContentLoaded', getTodos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("click", filterTodo);
@@ -56,6 +56,7 @@ function deleteCheck(event) {
         const todo = item.parentElement;
         // Delete Animation
         todo.classList.add("fall");
+        removeLocalTodos(todo);
         todo.addEventListener("transitionend", function() {
           todo.remove();  
         }); 
@@ -93,12 +94,12 @@ function filterTodo(event) {
 }
 
 function saveLocalTodos(todo) {
-    // Check if you already things saved of the is file
+    // Check if you already have things saved of the is file
     let todos;
-    if (localStorage.getItem('todos') === null) {
+    if (localStorage.getItem("todos") === null) {
         todos = [];
     } else {
-       todos = JSON.parse(localStorage.getItem('todos'));
+       todos = JSON.parse(localStorage.getItem("todos"));
         // This assumes we have codes of this files in save local 
     }
     
@@ -108,12 +109,12 @@ function saveLocalTodos(todo) {
 
 // Allows You To get todos that is saved in localstroage
 function getTodos() {
-     // Copy and paste this function code from "Check if you already things saved of the is file"
+     // Copy and paste this function code from "Check if you already have things saved of the is file"
      let todos;
-     if (localStorage.getItem('todos') === null) {
+     if (localStorage.getItem("todos") === null) {
          todos = [];
      } else {
-        todos = JSON.parse(localStorage.getItem('todos'));
+        todos = JSON.parse(localStorage.getItem("todos"));
          // This assumes we have codes of this files in save local 
      }
      todos.forEach(function(todo) {
@@ -148,4 +149,20 @@ function getTodos() {
         // Append To List
         todoList.appendChild(todoDiv);
      });
+}
+
+function removeLocalTodos(todo) {
+    // Copy and paste this function code a third time to delete from localstoragesaves. 
+    // Took this from function getTodos and that was also took from function saveLocalTodos
+    // Both the same code I reused
+    let todos;
+    if (localStorage.getItem("todos") === null) {
+        todos = [];
+    } else {
+       todos = JSON.parse(localStorage.getItem("todos"));
+        // This assumes we have codes of this files in save local 
+    }
+    const todoIndex = todo.children[0].innerText;
+    todos.splice(todos.IndexOf(todoIndex), 1);
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
